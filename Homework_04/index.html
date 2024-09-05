@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PopUp</title>
+    <style>
+        #main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+            font-family: cursive;
+        }
+
+        .block {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btns {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .btns>button {
+            width: 70px;
+            min-height: 30px;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        #btn_ok {
+            background-color: rgb(22, 124, 56);
+        }
+
+        #btn_cancel {
+            background-color: rgb(125, 4, 4);
+        }
+
+        #error {
+            color: rgb(236, 50, 50);
+        }
+    </style>
+    <!-- separate as js file -->
+    <script>
+        window.onload = async (event) => {
+            let fetchXml = `
+                <fetch version="1.0" mapping="logical" savedqueryid="977564c7-43b4-4deb-a9f5-7e3c64b4a8d3"
+                    no-lock="false" distinct="true">
+                    <entity name="new_product">
+                        <attribute name="statecode" />
+                        <attribute name="new_name" />
+                        <attribute name="new_productid" />
+                        <filter type="and">
+                            <condition attribute="new_productid" operator="not-null" />
+                        </filter>
+                    </entity>
+                </fetch>
+                `
+            fetchXml = "?fetchXml=" + encodeURIComponent(fetchXml)
+            const products = await parent.Xrm.WebApi.retrieveMultipleRecords('new_product', fetchXml)
+
+            for (let i = 0; i < products.entities.length; i++) {
+                const prod = products.entities[i];
+                const option = document.createElement('option')
+                option.innerText = prod['new_name']
+                option.value = prod['new_productid']
+                document.getElementById('products').append(option)
+            }
+
+            btn_cancel.onclick = () => {
+                window.close()
+            }
+
+            btn_ok.onclick = async () => {
+                let inventoryId = readParameterValues('inventoryId')
+                const product = document.getElementById('products').value
+                const operation = document.getElementById('operation').value
+                const quantity = document.getElementById('quantity').value
+                const errorMessage = document.createElement('p')
+                errorMessage.setAttribute('id', 'error')
+                document.getElementById('main').prepend(errorMessage)
+
+                if (!product || !operation || !quantity) {
+                    errorMessage.innerText = 'Fill all fields'
+                } else {
+                    // check if product in inventory
+                    let fetchXmlInventoryProduct = `
+                            <fetch version="1.0" mapping="log   ical" savedqueryid="d7a6c03f-d23e-4885-ad48-2d63d085440e"
+                                no-lock="false" distinct="true">
+                                <entity name="new_inventory_product">
+                                    <attribute name="new_name" />
+                                    <attribute name="statecode" />
+                                    <attribute name="new_total_amount" />
+                                    <attribute name="new_int_quantity" />
+                                    <attribute name="new_fk_product" />
+                                    <attribute name="new_price_per_unit" />
+                                    <attribute name="new_fk_inventory" />
+                                    <attribute name="new_inventory_productid" />
+                                    <filter type="and">
+                                        <condition attribute="new_fk_product" operator="eq"
+                                            value="${product}"  />
+                                        <condition attribute="new_fk_inventory" operator="eq"
+                                            value="${inventoryId.replace('{', '').replace('}', '')}" />
+                                    </filter>
+                                </entity>
+                            </fetch>
+                        `
+
+                    fetchXmlInventoryProduct = "?fetchXml=" + encodeURIComponent(fetchXmlInventoryProduct)
+                    const productsAsset = await parent.Xrm.WebApi.retrieveMultipleRecords('new_inventory_product', fetchXmlInventoryProduct)
+                    console.log(productsAsset);
+
+                    if (!productsAsset.entities.length && operation == 'out') {
+                        if (document.querySelector('#error')) {
+                            document.querySelector('#error').remove()
+                        }
+                        errorMessage.innerText = 'Product is not defined'
+
+                    } else if (!productsAsset.entities.length && operation == 'in') {
+                        if (document.querySelector('#error')) {
+                            document.querySelector('#error').remove()
+                        }
+                        let newInventoryProduct = {}
+                        newInventoryProduct['new_fk_inventory@odata.bind'] = `new_inventories(${inventoryId.replace('{', '').replace('}', '')})`
+                        newInventoryProduct['new_fk_product@odata.bind'] = `new_products(${product})`
+                        newInventoryProduct['new_int_quantity'] = quantity
+                        await parent.Xrm.WebApi.createRecord('new_inventory_product', newInventoryProduct) // error
+                    } else if (productsAsset.entities.length && operation == 'in') {
+                        if (document.querySelector('#error')) {
+                            document.querySelector('#error').remove()
+                        }
+                        productsAsset.entities[0]['new_int_quantity'] += parseInt(quantity)
+                        await parent.Xrm.WebApi.updateRecord('new_inventory_product',
+                            productsAsset.entities[0]['new_inventory_productid'], productsAsset.entities[0])
+                    } else if (productsAsset.entities.length && operation == 'out') {
+                        if (document.querySelector('#error')) {
+                            document.querySelector('#error').remove()
+                        }
+                        if (productsAsset.entities[0]['new_int_quantity'] < quantity) {
+                            errorMessage.innerText = 'Quantity is too much'
+                        } else {
+                            productsAsset.entities[0]['new_int_quantity'] -= parseInt(quantity)
+                            await parent.Xrm.WebApi.updateRecord('new_inventory_product',
+                                productsAsset.entities[0]['new_inventory_productid'], productsAsset.entities[0])
+                        }
+                    }
+                }
+            }
+        }
+
+
+        function readParameterValues(parameterName) {
+            if (location.search != null) {
+                if (location.search.split('=')[1] != null) {
+                    return JSON.parse(decodeURIComponent(location.search.split('=')[1]))[parameterName]
+                }
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="main">
+        <div class="block">
+            <div>
+                <label for="products">Choose a product</label>
+                <select name="products" id="products">
+                    <option selected disabled value="">Choose a product</option>
+                </select>
+            </div>
+            <div>
+                <label for="operation">Choose operation</label>
+                <select name="operation" id="operation">
+                    <option value="">Choose an operation</option>
+                    <option value="in">In</option>
+                    <option value="out">Out</option>
+                </select>
+            </div>
+            <div>
+                <label for="quantity">Quantity</label>
+                <input type="number" name="quantity" id="quantity">
+            </div>
+        </div>
+        <div class="btns">
+            <button id="btn_ok">Ok</button>
+            <button id="btn_cancel">Cancel</button>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
