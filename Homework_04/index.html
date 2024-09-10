@@ -89,14 +89,15 @@
                 const quantity = document.getElementById('quantity').value
                 const errorMessage = document.createElement('p')
                 errorMessage.setAttribute('id', 'error')
-                document.getElementById('main').prepend(errorMessage)
+                // document.getElementById('main').prepend(errorMessage)
 
                 if (!product || !operation || !quantity) {
                     errorMessage.innerText = 'Fill all fields'
+                    document.getElementById('main').prepend(errorMessage)
                 } else {
                     // check if product in inventory
                     let fetchXmlInventoryProduct = `
-                            <fetch version="1.0" mapping="log   ical" savedqueryid="d7a6c03f-d23e-4885-ad48-2d63d085440e"
+                            <fetch version="1.0" mapping="logical" savedqueryid="d7a6c03f-d23e-4885-ad48-2d63d085440e"
                                 no-lock="false" distinct="true">
                                 <entity name="new_inventory_product">
                                     <attribute name="new_name" />
@@ -109,9 +110,9 @@
                                     <attribute name="new_inventory_productid" />
                                     <filter type="and">
                                         <condition attribute="new_fk_product" operator="eq"
-                                            value="${product}"  />
+                                            value="{${product}}"  />
                                         <condition attribute="new_fk_inventory" operator="eq"
-                                            value="${inventoryId.replace('{', '').replace('}', '')}" />
+                                            value="${inventoryId}" />
                                     </filter>
                                 </entity>
                             </fetch>
@@ -119,13 +120,14 @@
 
                     fetchXmlInventoryProduct = "?fetchXml=" + encodeURIComponent(fetchXmlInventoryProduct)
                     const productsAsset = await parent.Xrm.WebApi.retrieveMultipleRecords('new_inventory_product', fetchXmlInventoryProduct)
-                    console.log(productsAsset);
+                    console.log('productsAsset=>', productsAsset);
 
                     if (!productsAsset.entities.length && operation == 'out') {
                         if (document.querySelector('#error')) {
                             document.querySelector('#error').remove()
                         }
                         errorMessage.innerText = 'Product is not defined'
+                        document.getElementById('main').prepend(errorMessage)
 
                     } else if (!productsAsset.entities.length && operation == 'in') {
                         if (document.querySelector('#error')) {
@@ -136,19 +138,28 @@
                         newInventoryProduct['new_fk_product@odata.bind'] = `new_products(${product})`
                         newInventoryProduct['new_int_quantity'] = quantity
                         await parent.Xrm.WebApi.createRecord('new_inventory_product', newInventoryProduct) // error
+
                     } else if (productsAsset.entities.length && operation == 'in') {
                         if (document.querySelector('#error')) {
                             document.querySelector('#error').remove()
                         }
+                        // productsAsset.entities[0]['new_int_quantity@OData.Community.Display.V1.FormattedValue'] += parseInt(quantity)
                         productsAsset.entities[0]['new_int_quantity'] += parseInt(quantity)
+                        console.log(productsAsset.entities[0]);
+
                         await parent.Xrm.WebApi.updateRecord('new_inventory_product',
                             productsAsset.entities[0]['new_inventory_productid'], productsAsset.entities[0])
+
                     } else if (productsAsset.entities.length && operation == 'out') {
                         if (document.querySelector('#error')) {
                             document.querySelector('#error').remove()
                         }
                         if (productsAsset.entities[0]['new_int_quantity'] < quantity) {
+                            if (document.querySelector('#error')) {
+                                document.querySelector('#error').remove()
+                            }
                             errorMessage.innerText = 'Quantity is too much'
+                            document.getElementById('main').prepend(errorMessage)
                         } else {
                             productsAsset.entities[0]['new_int_quantity'] -= parseInt(quantity)
                             await parent.Xrm.WebApi.updateRecord('new_inventory_product',
@@ -183,7 +194,7 @@
             <div>
                 <label for="operation">Choose operation</label>
                 <select name="operation" id="operation">
-                    <option value="">Choose an operation</option>
+                    <option value="" selected disabled>Choose an operation</option>
                     <option value="in">In</option>
                     <option value="out">Out</option>
                 </select>
