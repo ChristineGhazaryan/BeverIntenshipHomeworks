@@ -8,7 +8,7 @@ function hideField(executionContext) {
         // non-mandatory
         formContext.getAttribute('new_name').setRequiredLevel('none')
         // hide field
-        fieldControl.setVisible(false);
+        fieldControl.setDisabled(true);
     }
 }
 

@@ -14,6 +14,7 @@
 // the Customer. Filter contact, based on the position that's relates Contact to the
 // Account (Customer).
 let contactLookupPointer = null
+
 function filterContact(executionContext) {
     let formContext = executionContext.getFormContext()
     let customer = formContext.getAttribute('new_fk_customer').getValue()
@@ -24,6 +25,8 @@ function filterContact(executionContext) {
 
     contactLookupPointer = filterFunction.bind({ "customer": customer[0]?.id })
     formContext.getControl('new_fk_contact').addPreSearch(contactLookupPointer)
+    // console.log(contactLookupPointer);
+    
 }
 
 async function filterFunction(executionContext) {
@@ -59,7 +62,7 @@ async function filterFunction(executionContext) {
         fetchXmlContacts += `<condition attribute="new_my_contactid" operator="eq" value="{${contactId}}" />`
     }
     fetchXmlContacts += `</filter>`
-    console.log(fetchXmlContacts);
+    // console.log(fetchXmlContacts);
 
 
     // -------- Option 2 ----------- ???

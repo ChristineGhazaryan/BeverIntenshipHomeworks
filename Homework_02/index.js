@@ -10,7 +10,6 @@ async function changeCurrency(executionContext) {
         const priceListId = priceList[0]?.id.replace('{', '').replace('}', '')
 
         const asset = await Xrm.WebApi.retrieveRecord(priceListEntityType, priceListId);
-        // 3rd parametr for retrieveRecord
 
         formContext.getAttribute('transactioncurrencyid').setValue([{
             id: `{${asset['_transactioncurrencyid_value']}}`,

@@ -51,8 +51,22 @@
             color: rgb(236, 50, 50);
         }
     </style>
-    <!-- separate as js file -->
     <script>
+        // function refreshParentSubgrid(subgridName) {
+        //     try {
+        //         var parentContext = window.parent.Xrm.Page; 
+        //         var subgridControl = parentContext.getControl(subgridName);
+        //         if (subgridControl && subgridControl.getControlType() === "subgrid") {
+        //             subgridControl.refresh();
+        //             console.log("Parent subgrid refreshed successfully.");
+        //         } else {
+        //             console.error("Subgrid not found or not a subgrid control on the parent form.");
+        //         }
+        //     } catch (error) {
+        //         console.error("Error refreshing parent subgrid: " + error.message);
+        //     }
+        // }
+
         window.onload = async (event) => {
             let fetchXml = `
                 <fetch version="1.0" mapping="logical" savedqueryid="977564c7-43b4-4deb-a9f5-7e3c64b4a8d3"
@@ -137,18 +151,26 @@
                         newInventoryProduct['new_fk_inventory@odata.bind'] = `new_inventories(${inventoryId.replace('{', '').replace('}', '')})`
                         newInventoryProduct['new_fk_product@odata.bind'] = `new_products(${product})`
                         newInventoryProduct['new_int_quantity'] = quantity
-                        await parent.Xrm.WebApi.createRecord('new_inventory_product', newInventoryProduct) // error
+                        await parent.Xrm.WebApi.createRecord('new_inventory_product', newInventoryProduct)
+                        // parent.Xrm.Page.getControl("new_inventory").refresh();
+                        // refreshParentSubgrid('new_inventory_product')
+                        // parent.Xrm.Page.refresh();
+                        window.close()
+                        window.location.reload();
+
 
                     } else if (productsAsset.entities.length && operation == 'in') {
                         if (document.querySelector('#error')) {
                             document.querySelector('#error').remove()
                         }
-                        // productsAsset.entities[0]['new_int_quantity@OData.Community.Display.V1.FormattedValue'] += parseInt(quantity)
-                        productsAsset.entities[0]['new_int_quantity'] += parseInt(quantity)
-                        console.log(productsAsset.entities[0]);
-
+                        const data = { 'new_int_quantity': productsAsset.entities[0]['new_int_quantity'] + parseInt(quantity) }
                         await parent.Xrm.WebApi.updateRecord('new_inventory_product',
-                            productsAsset.entities[0]['new_inventory_productid'], productsAsset.entities[0])
+                            productsAsset.entities[0]['new_inventory_productid'], data)
+                        // parent.Xrm.Page.getControl("new_inventory").refresh();
+                        // refreshParentSubgrid('new_inventory_product')
+                        // parent.Xrm.Page.refresh();
+                        window.close()
+                        window.location.reload();
 
                     } else if (productsAsset.entities.length && operation == 'out') {
                         if (document.querySelector('#error')) {
@@ -161,9 +183,14 @@
                             errorMessage.innerText = 'Quantity is too much'
                             document.getElementById('main').prepend(errorMessage)
                         } else {
-                            productsAsset.entities[0]['new_int_quantity'] -= parseInt(quantity)
+                            const data = { 'new_int_quantity': productsAsset.entities[0]['new_int_quantity'] - parseInt(quantity) }
                             await parent.Xrm.WebApi.updateRecord('new_inventory_product',
                                 productsAsset.entities[0]['new_inventory_productid'], productsAsset.entities[0])
+                            // parent.Xrm.Page.getControl("new_inventory").refresh();
+                            // refreshParentSubgrid('new_inventory_product')
+                            // parent.Xrm.Page.refresh();
+                            window.close()
+                            window.location.reload();
                         }
                     }
                 }
