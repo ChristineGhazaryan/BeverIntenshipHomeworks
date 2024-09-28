@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\BeverIntenshipHomeworks\\.net homeworks\\Homework_01\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{EBD5CA32-4112-4147-AE30-E23A2463D9E8}|Homework_01\\Homework_01.csproj|c:\\users\\admin\\desktop\\beverintenshiphomeworks\\.net homeworks\\homework_01\\homework_01\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBD5CA32-4112-4147-AE30-E23A2463D9E8}|Homework_01\\Homework_01.csproj|solutionrelative:homework_01\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{EBD5CA32-4112-4147-AE30-E23A2463D9E8}|Homework_01\\Homework_01.csproj|c:\\users\\admin\\desktop\\beverintenshiphomeworks\\.net homeworks\\homework_01\\homework_01\\utilities\\d365connector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EBD5CA32-4112-4147-AE30-E23A2463D9E8}|Homework_01\\Homework_01.csproj|solutionrelative:homework_01\\utilities\\d365connector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{EBD5CA32-4112-4147-AE30-E23A2463D9E8}|Homework_01\\Homework_01.csproj|c:\\users\\admin\\desktop\\beverintenshiphomeworks\\.net homeworks\\homework_01\\homework_01\\model\\pricelistitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EBD5CA32-4112-4147-AE30-E23A2463D9E8}|Homework_01\\Homework_01.csproj|solutionrelative:homework_01\\model\\pricelistitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EBD5CA32-4112-4147-AE30-E23A2463D9E8}|Homework_01\\Homework_01.csproj|c:\\users\\admin\\desktop\\beverintenshiphomeworks\\.net homeworks\\homework_01\\homework_01\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EBD5CA32-4112-4147-AE30-E23A2463D9E8}|Homework_01\\Homework_01.csproj|solutionrelative:homework_01\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EBD5CA32-4112-4147-AE30-E23A2463D9E8}|Homework_01\\Homework_01.csproj|c:\\users\\admin\\desktop\\beverintenshiphomeworks\\.net homeworks\\homework_01\\homework_01\\model\\pricelist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,11 +30,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "PriceListItem.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\BeverIntenshipHomeworks\\.net homeworks\\Homework_01\\Homework_01\\Model\\PriceListItem.cs",
               "RelativeDocumentMoniker": "Homework_01\\Model\\PriceListItem.cs",
@@ -47,7 +47,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "InventoryProduct.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\BeverIntenshipHomeworks\\.net homeworks\\Homework_01\\Homework_01\\Model\\InventoryProduct.cs",
               "RelativeDocumentMoniker": "Homework_01\\Model\\InventoryProduct.cs",
@@ -60,13 +60,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "D365Connector.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\BeverIntenshipHomeworks\\.net homeworks\\Homework_01\\Homework_01\\Utilities\\D365Connector.cs",
               "RelativeDocumentMoniker": "Homework_01\\Utilities\\D365Connector.cs",
               "ToolTip": "C:\\Users\\Admin\\Desktop\\BeverIntenshipHomeworks\\.net homeworks\\Homework_01\\Homework_01\\Utilities\\D365Connector.cs",
               "RelativeToolTip": "Homework_01\\Utilities\\D365Connector.cs",
-              "ViewState": "AgIAANwAAAAAAAAAAAAAAOkAAABLAAAAAAAAAA==",
+              "ViewState": "AgIAACAAAAAAAAAAAAAcwJoAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-19T12:04:01.2Z",
               "EditorCaption": ""
@@ -86,13 +86,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\BeverIntenshipHomeworks\\.net homeworks\\Homework_01\\Homework_01\\Program.cs",
               "RelativeDocumentMoniker": "Homework_01\\Program.cs",
               "ToolTip": "C:\\Users\\Admin\\Desktop\\BeverIntenshipHomeworks\\.net homeworks\\Homework_01\\Homework_01\\Program.cs",
               "RelativeToolTip": "Homework_01\\Program.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAAADEAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-19T11:09:10.745Z",
               "EditorCaption": ""

@@ -218,13 +218,14 @@ namespace Homework_01.Utilities
                 };
                 EntityCollection priceListItem = this.service.RetrieveMultiple(priceListItemQuery);
 
-                if ( priceListItem.Entities.Count > 0)
+                if (priceListItem.Entities.Count > 0)
                 {
                     Money pricePerUnit = priceListItem.Entities[0].GetAttributeValue<Money>("new_mon_price");
                     Console.WriteLine($"pricePerUnit if {pricePerUnit}");
                     inventoryProductObj["new_price_per_unit"] = pricePerUnit;
                     inventoryProductObj["new_total_amount"] = new Money(pricePerUnit.Value * quantity);
-                } else
+                }
+                else
                 {
                     Money pricePerUnit = productEntity.GetAttributeValue<Money>("new_mon_price");
                     Console.WriteLine($"pricePerUnit else {pricePerUnit}");
