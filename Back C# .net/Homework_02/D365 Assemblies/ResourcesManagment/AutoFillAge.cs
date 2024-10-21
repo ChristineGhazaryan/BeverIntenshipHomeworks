@@ -6,11 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xrm.Sdk.Query;
 
 namespace ResourcesManagment
 {
     public class AutoFillAge : CodeActivity
     {
+        // Fields
         [Input("dateOfBirth")]
         public InArgument<DateTime> DateOfBirth { get; set; }
 
@@ -24,7 +26,7 @@ namespace ResourcesManagment
             IWorkflowContext context = executionContext.GetExtension<IWorkflowContext>();
             IOrganizationServiceFactory serviceFactory = executionContext.GetExtension<IOrganizationServiceFactory>();
             IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
-            // IExecutionContext crmContext = executionContext.GetExtension<IExecutionContext>();
+            
             try
             {
                 int currentYear = DateTime.Now.Year;
@@ -33,9 +35,12 @@ namespace ResourcesManagment
                 if (dateOfBirth != null)
                 {
                     age = currentYear - dateOfBirth.Year;
-                    tracingService.Trace($"{currentYear} - {dateOfBirth}");
                 }
                 Age.Set(executionContext, age);
+                
+                Entity entity = service.Retrieve(context.PrimaryEntityName, context.PrimaryEntityId, new ColumnSet(true));
+                entity["new_int_age"] = age;
+                service.Update(entity);
 
             }
             catch (Exception ex)

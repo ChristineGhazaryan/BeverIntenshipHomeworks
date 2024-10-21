@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\BeverIntenshipHomeworks\\Back C# .net\\Homework_02\\D365 Assemblies\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{245BBB22-EB81-48EE-BF24-A9CF99B40AAB}|ResourcesManagment\\ResourcesManagment.csproj|c:\\users\\admin\\desktop\\beverintenshiphomeworks\\back c# .net\\homework_02\\d365 assemblies\\resourcesmanagment\\autofillage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245BBB22-EB81-48EE-BF24-A9CF99B40AAB}|ResourcesManagment\\ResourcesManagment.csproj|solutionrelative:resourcesmanagment\\autofillage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{83A632C7-315B-4BA3-BFA4-D833A58AA8BC}|WorkOrderManagment\\WorkOrderManagment.csproj|c:\\users\\admin\\desktop\\beverintenshiphomeworks\\back c# .net\\homework_02\\d365 assemblies\\workordermanagment\\updateworkorderstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{83A632C7-315B-4BA3-BFA4-D833A58AA8BC}|WorkOrderManagment\\WorkOrderManagment.csproj|solutionrelative:workordermanagment\\updateworkorderstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66CEF0B9-2950-4747-9D18-09FF8DEBDD8A}|InventoriesManagment\\InventoriesManagment.csproj|c:\\users\\admin\\desktop\\beverintenshiphomeworks\\back c# .net\\homework_02\\d365 assemblies\\inventoriesmanagment\\updatepricelistininventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{66CEF0B9-2950-4747-9D18-09FF8DEBDD8A}|InventoriesManagment\\InventoriesManagment.csproj|solutionrelative:inventoriesmanagment\\updatepricelistininventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AutoFillAge.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\BeverIntenshipHomeworks\\Back C# .net\\Homework_02\\D365 Assemblies\\ResourcesManagment\\AutoFillAge.cs",
-              "RelativeDocumentMoniker": "ResourcesManagment\\AutoFillAge.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\BeverIntenshipHomeworks\\Back C# .net\\Homework_02\\D365 Assemblies\\ResourcesManagment\\AutoFillAge.cs",
-              "RelativeToolTip": "ResourcesManagment\\AutoFillAge.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwCMAAABHAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "UpdatePriceListInInventory.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\BeverIntenshipHomeworks\\Back C# .net\\Homework_02\\D365 Assemblies\\InventoriesManagment\\UpdatePriceListInInventory.cs",
+              "RelativeDocumentMoniker": "InventoriesManagment\\UpdatePriceListInInventory.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\BeverIntenshipHomeworks\\Back C# .net\\Homework_02\\D365 Assemblies\\InventoriesManagment\\UpdatePriceListInInventory.cs",
+              "RelativeToolTip": "InventoriesManagment\\UpdatePriceListInInventory.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAYwFoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-08T11:14:50.884Z",
+              "WhenOpened": "2024-10-14T12:18:28.69Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UpdateWorkOrderStatus.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\BeverIntenshipHomeworks\\Back C# .net\\Homework_02\\D365 Assemblies\\WorkOrderManagment\\UpdateWorkOrderStatus.cs",
+              "RelativeDocumentMoniker": "WorkOrderManagment\\UpdateWorkOrderStatus.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\BeverIntenshipHomeworks\\Back C# .net\\Homework_02\\D365 Assemblies\\WorkOrderManagment\\UpdateWorkOrderStatus.cs*",
+              "RelativeToolTip": "WorkOrderManagment\\UpdateWorkOrderStatus.cs*",
+              "ViewState": "AgIAADAAAAAAAAAAAAAYwEUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T08:41:15.707Z",
               "EditorCaption": ""
             }
           ]
